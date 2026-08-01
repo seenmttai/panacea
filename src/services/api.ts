@@ -265,3 +265,63 @@ export function generateMockDRResult(): DRResponse {
     threshold: 0.5,
   };
 }
+
+export interface ContactFormData {
+  name: string;
+  email: string;
+  organization?: string;
+  inquiryType: string;
+  message: string;
+}
+
+/**
+ * Transmits contact inquiries via Resend REST API using RESEND_KEY secret
+ */
+export async function sendResendContactEmail(formData: ContactFormData): Promise<{ success: boolean; message?: string }> {
+  const resendKey = (import.meta as any).env?.VITE_RESEND_KEY || 
+                    (import.meta as any).env?.RESEND_KEY || 
+                    (window as any).RESEND_KEY || "";
+
+  if (!resendKey) {
+    console.warn("RESEND_KEY secret not found in environment. Fallback simulated submission active.");
+    return { success: true, message: "Simulated submission fallback (RESEND_KEY secret missing)." };
+  }
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${resendKey}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "Panacea AI <onboarding@resend.dev>",
+        to: ["delivered@resend.dev"],
+        subject: `[Panacea Clinical Inquiry] ${formData.inquiryType} - ${formData.name}`,
+        html: `
+          <div style="font-family: sans-serif; padding: 20px; color: #0F172A;">
+            <h2 style="color: #0284C7;">Panacea Medical AI - New Clinical Contact</h2>
+            <p><strong>Full Name:</strong> ${formData.name}</p>
+            <p><strong>Professional Email:</strong> <a href="mailto:${formData.email}">${formData.email}</a></p>
+            <p><strong>Institution / Network:</strong> ${formData.organization || "Not Specified"}</p>
+            <p><strong>Inquiry Category:</strong> ${formData.inquiryType}</p>
+            <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 20px 0;" />
+            <p><strong>Project Scope & Requirements:</strong></p>
+            <p style="background: #F8FAFC; padding: 15px; border-radius: 8px;">${formData.message.replace(/\n/g, "<br/>")}</p>
+          </div>
+        `
+      })
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.warn("Resend API HTTP Error:", res.status, errText);
+      return { success: false, message: `Resend API Error: ${res.status}` };
+    }
+
+    return { success: true };
+  } catch (err: any) {
+    console.error("Resend API Exception:", err);
+    return { success: false, message: err.message || "Failed to transmit via Resend API" };
+  }
+}

@@ -8,14 +8,14 @@ export const ContactPage: React.FC = () => {
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-mono uppercase tracking-widest">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400 text-xs font-mono uppercase tracking-widest backdrop-blur-sm">
           <HeartHandshake className="w-4 h-4 text-cyan-400" />
           <span>Clinical Contact & Research</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold font-display text-slate-900">
+        <h1 className="text-4xl sm:text-5xl font-extrabold font-display text-white">
           Partner with Panacea Engineering
         </h1>
-        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+        <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
           Get in touch with our clinical AI team for institutional partnerships, HIPAA integration, or custom vision models.
         </p>
       </div>
@@ -29,7 +29,7 @@ export const ContactPage: React.FC = () => {
 
         {/* Right: Info Sidebar */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="bg-slate-900 text-white rounded-3xl p-8 space-y-6 border border-slate-800 shadow-xl">
+          <div className="dark-glass-panel rounded-3xl p-8 space-y-6">
             <h3 className="text-xl font-bold font-display text-white">Direct Communication Channels</h3>
 
             <div className="space-y-4 text-sm text-slate-300">
@@ -39,8 +39,8 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <span className="text-xs text-slate-400 block font-mono">Clinical Inquiries</span>
-                  <a href="mailto:ai-research@panacea.med" className="font-semibold text-white hover:text-cyan-400 transition-colors">
-                    ai-research@panacea.med
+                  <a href="mailto:kritagya.singh.dev@gmail.com" className="font-semibold text-white hover:text-cyan-400 transition-colors">
+                    kritagya.singh.dev@gmail.com
                   </a>
                 </div>
               </div>
@@ -67,13 +67,13 @@ export const ContactPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-lg space-y-4">
+          <div className="dark-glass-panel rounded-3xl p-8 space-y-4">
             <div className="flex items-center gap-3">
-              <ShieldCheck className="w-6 h-6 text-emerald-500" />
-              <h4 className="font-display font-bold text-slate-900 text-base">Regulatory & Security Notice</h4>
+              <ShieldCheck className="w-6 h-6 text-emerald-400" />
+              <h4 className="font-display font-bold text-white text-base">Regulatory & Security Notice</h4>
             </div>
-            <p className="text-xs text-slate-600 leading-relaxed">
-              All video frames and retinal fundus uploads are executed in ephemeral sandbox memory. No patient Identifiable Health Information (PHI) is retained on Ngrok or server storage.
+            <p className="text-xs text-slate-300 leading-relaxed">
+              All video frames, endoscopy imagery, and retinal fundus uploads are executed in volatile ephemeral sandbox memory. No patient Identifiable Health Information (PHI) is retained.
             </p>
           </div>
         </div>
