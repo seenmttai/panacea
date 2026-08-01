@@ -45,20 +45,20 @@ export const Technology: React.FC = () => {
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-xs font-mono uppercase tracking-widest">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400 text-xs font-mono uppercase tracking-widest backdrop-blur-sm">
           <Cpu className="w-4 h-4 text-cyan-400" />
           <span>Architectural Blueprint</span>
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold font-display text-slate-900">
+        <h1 className="text-4xl sm:text-5xl font-extrabold font-display text-white">
           Unified Medical AI Specifications
         </h1>
-        <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
+        <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
           Comprehensive documentation for integration with our non-invasive computer vision inference backbones.
         </p>
       </div>
 
       {/* Cloudflare Pages Hosting Banner */}
-      <div className="p-8 rounded-3xl bg-slate-900 text-white space-y-6 border border-slate-800 shadow-2xl">
+      <div className="p-8 rounded-3xl dark-glass-panel space-y-6">
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
@@ -112,7 +112,7 @@ export const Technology: React.FC = () => {
 
       {/* Code Snippets Section */}
       <div className="space-y-8">
-        <h2 className="text-2xl font-bold font-display text-slate-900">
+        <h2 className="text-2xl font-bold font-display text-white">
           Live Endpoint Playground & Examples
         </h2>
 

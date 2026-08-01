@@ -73,7 +73,7 @@ export const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ className = '' }
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(100, 116, 139, ${0.15 * (1 - dist / 130)})`;
+            ctx.strokeStyle = `rgba(34, 211, 238, ${0.25 * (1 - dist / 130)})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
@@ -99,7 +99,7 @@ export const ParticleCanvas: React.FC<ParticleCanvasProps> = ({ className = '' }
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(15, 23, 42, ${p.alpha})`;
+        ctx.fillStyle = `rgba(59, 130, 246, ${p.alpha})`;
         ctx.fill();
       });
 

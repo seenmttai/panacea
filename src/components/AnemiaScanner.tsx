@@ -220,7 +220,7 @@ export const AnemiaScanner: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
+    <div className="dark-glass-panel rounded-2xl overflow-hidden">
       {/* Header */}
       <div className="p-6 md:p-8 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-rose-500/10 rounded-full blur-3xl" />
@@ -265,7 +265,7 @@ export const AnemiaScanner: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Biological Sex Selection */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
               Biological Sex (For Diagnostic Cutoff Baseline)
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -274,8 +274,8 @@ export const AnemiaScanner: React.FC = () => {
                 onClick={() => setSex('female')}
                 className={`py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 ${
                   sex === 'female'
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                    ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.3)]'
+                    : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
                 }`}
               >
                 Female (Threshold 12.0 g/dL)
@@ -285,8 +285,8 @@ export const AnemiaScanner: React.FC = () => {
                 onClick={() => setSex('male')}
                 className={`py-3 px-4 rounded-xl border text-sm font-medium transition-all flex items-center justify-center gap-2 ${
                   sex === 'male'
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
-                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
+                    ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.3)]'
+                    : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
                 }`}
               >
                 Male (Threshold 13.0 g/dL)
@@ -296,20 +296,20 @@ export const AnemiaScanner: React.FC = () => {
 
           {/* Action Choice: Camera vs File Upload */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+            <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
               Capture or Upload Video
             </label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={startLiveCamera}
-                className="py-3 px-4 rounded-xl border border-slate-300 bg-slate-900 text-white text-sm font-medium hover:bg-slate-800 transition-all flex items-center justify-center gap-2 shadow-sm"
+                className="py-3 px-4 rounded-xl border border-slate-700 bg-slate-800 text-white text-sm font-medium hover:bg-slate-700 transition-all flex items-center justify-center gap-2 shadow-sm"
               >
                 <Camera className="w-4 h-4 text-cyan-400" />
                 Live Fingertip Recording
               </button>
 
-              <label className="py-3 px-4 rounded-xl border border-slate-300 bg-white text-slate-700 text-sm font-medium hover:bg-slate-50 cursor-pointer transition-all flex items-center justify-center gap-2 shadow-xs">
+              <label className="py-3 px-4 rounded-xl border border-slate-700 bg-slate-800 text-white text-sm font-medium hover:bg-slate-700 cursor-pointer transition-all flex items-center justify-center gap-2 shadow-xs">
                 <Upload className="w-4 h-4 text-slate-500" />
                 Select Video File
                 <input
@@ -396,7 +396,7 @@ export const AnemiaScanner: React.FC = () => {
 
         {/* Video Preview & Sample Loader */}
         {!isLiveCamera && (
-          <div className="p-6 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center text-center space-y-4">
+          <div className="p-6 rounded-2xl border-2 border-dashed border-slate-700 bg-slate-900/50 flex flex-col items-center justify-center text-center space-y-4">
             {videoPreviewUrl ? (
               <div className="w-full max-w-md space-y-3">
                 <div className="relative aspect-video bg-black rounded-xl overflow-hidden border border-slate-300 shadow-md">
@@ -415,7 +415,7 @@ export const AnemiaScanner: React.FC = () => {
                   <FileVideo className="w-6 h-6" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-slate-800">No video selected yet</p>
+                  <p className="text-sm font-semibold text-white">No video selected yet</p>
                   <p className="text-xs text-slate-500 mt-0.5">
                     Record a fingertip video or upload an MP4/WEBM clip.
                   </p>
@@ -423,9 +423,9 @@ export const AnemiaScanner: React.FC = () => {
                 <button
                   type="button"
                   onClick={loadSyntheticSample}
-                  className="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-semibold transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors flex items-center gap-1.5"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                   Load Sample Nailbed Video (Instant Test)
                 </button>
               </>
@@ -440,8 +440,8 @@ export const AnemiaScanner: React.FC = () => {
             disabled={!videoFile || loading}
             className={`w-full py-4 rounded-xl font-display font-semibold text-base transition-all flex items-center justify-center gap-2 shadow-lg ${
               !videoFile || loading
-                ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-900/20'
+                ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                : 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-[0_0_15px_rgba(34,211,238,0.3)]'
             }`}
           >
             {loading ? (

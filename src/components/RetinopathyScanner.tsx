@@ -71,7 +71,7 @@ export const RetinopathyScanner: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
+    <div className="dark-glass-panel rounded-2xl overflow-hidden">
       {/* Header */}
       <div className="p-6 md:p-8 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute right-0 top-0 translate-x-8 -translate-y-8 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl" />
@@ -98,14 +98,14 @@ export const RetinopathyScanner: React.FC = () => {
           </div>
         )}
         {/* Upload Area */}
-        <div className="p-6 rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50/50 flex flex-col items-center justify-center text-center space-y-4">
+        <div className="p-6 rounded-2xl border-2 border-dashed border-slate-700 bg-slate-900/50 flex flex-col items-center justify-center text-center space-y-4">
           {previewUrl ? (
             <div className="w-full max-w-sm space-y-3">
               <div className="relative aspect-square max-h-72 bg-slate-900 rounded-xl overflow-hidden border border-slate-300 shadow-md mx-auto">
                 <img src={previewUrl} alt="Retina preview" className="w-full h-full object-cover" />
               </div>
               <div className="flex items-center justify-between text-xs text-slate-500">
-                <span className="font-medium text-slate-700 truncate max-w-[200px]">
+                <span className="font-medium text-white truncate max-w-[200px]">
                   {imageFile?.name}
                 </span>
                 <span>{(imageFile?.size ? imageFile.size / 1024 : 0).toFixed(1)} KB</span>
@@ -117,12 +117,12 @@ export const RetinopathyScanner: React.FC = () => {
                 <FileImage className="w-6 h-6" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-800">Upload Retinal Fundus Image</p>
+                <p className="text-sm font-semibold text-white">Upload Retinal Fundus Image</p>
                 <p className="text-xs text-slate-500 mt-0.5">Supports PNG, JPG, or JPEG macro photography.</p>
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <label className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold cursor-pointer transition-all shadow-sm">
+                <label className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold cursor-pointer transition-all shadow-sm border border-slate-700">
                   Choose Image File
                   <input
                     type="file"
@@ -135,9 +135,9 @@ export const RetinopathyScanner: React.FC = () => {
                 <button
                   type="button"
                   onClick={loadSyntheticSample}
-                  className="px-4 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-semibold transition-colors flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors flex items-center gap-1.5"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                   Load Sample Fundus Scan
                 </button>
               </div>
@@ -152,8 +152,8 @@ export const RetinopathyScanner: React.FC = () => {
             disabled={!imageFile || loading}
             className={`w-full py-4 rounded-xl font-display font-semibold text-base transition-all flex items-center justify-center gap-2 shadow-lg ${
               !imageFile || loading
-                ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                : 'bg-slate-900 hover:bg-slate-800 text-white shadow-slate-900/20'
+                ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                : 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 shadow-[0_0_15px_rgba(34,211,238,0.3)]'
             }`}
           >
             {loading ? (
