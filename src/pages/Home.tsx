@@ -7,7 +7,8 @@ import {
   Droplet, 
   Eye, 
   Cpu, 
-  CheckCircle2
+  CheckCircle2,
+  Stethoscope
 } from 'lucide-react';
 
 interface HomeProps {
@@ -125,16 +126,16 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             Clinical Vision Models
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold font-display text-white">
-            Dual High-Precision Neural Architectures
+            Triple High-Precision Neural Architectures
           </h2>
           <p className="text-slate-400 text-sm max-w-2xl mx-auto">
-            Choose a non-invasive screening module powered by our live cloud deep learning backend.
+            Choose a non-invasive or endoscopic screening module powered by live deep learning backbones.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1: Anemia */}
-          <div className="dark-glass-panel rounded-3xl p-8 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] transition-all duration-300 flex flex-col justify-between space-y-6 group">
+          <div className="dark-glass-panel rounded-3xl p-6 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] transition-all duration-300 flex flex-col justify-between space-y-6 group">
             <div className="space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-slate-800/80 border border-rose-500/30 text-rose-400 flex items-center justify-center font-bold shadow-inner">
                 <Droplet className="w-7 h-7" />
@@ -143,25 +144,25 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-1">
                   VBOSNetDinoV2 Model • Endpoint: /predict_anemia
                 </span>
-                <h3 className="text-2xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
+                <h3 className="text-xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
                   Continuous Hemoglobin Quantification
                 </h3>
               </div>
-              <p className="text-slate-300 text-sm leading-relaxed">
+              <p className="text-slate-300 text-xs leading-relaxed">
                 Extracts 5 evenly-spaced JPEG frames (224x224) from a 5-second video of an illuminated fingertip nailbed to accurately measure Hemoglobin levels in g/dL.
               </p>
 
               <ul className="space-y-2 text-xs text-slate-300 font-medium">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>Biological Sex Baseline Adjustment (Female 12.0 / Male 13.0 g/dL)</span>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Biological Sex Baseline Adjustment</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>HTML5 Canvas 5-Frame Auto Extractor</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>Torch Flashlight Tissue Illumination</span>
                 </li>
               </ul>
@@ -169,7 +170,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
 
             <button
               onClick={() => onNavigate('diagnostics')}
-              className="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(34,211,238,0.3)]"
+              className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(34,211,238,0.3)] mt-4"
             >
               <span>Test Anemia Scanner</span>
               <ArrowRight className="w-4 h-4 text-slate-900" />
@@ -177,7 +178,7 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           </div>
 
           {/* Card 2: Retinopathy */}
-          <div className="dark-glass-panel rounded-3xl p-8 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] transition-all duration-300 flex flex-col justify-between space-y-6 group">
+          <div className="dark-glass-panel rounded-3xl p-6 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(34,211,238,0.15)] transition-all duration-300 flex flex-col justify-between space-y-6 group">
             <div className="space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-slate-800/80 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-bold shadow-inner">
                 <Eye className="w-7 h-7" />
@@ -186,47 +187,94 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-1">
                   EfficientNetB6 Model • Endpoint: /predict_dr
                 </span>
-                <h3 className="text-2xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
+                <h3 className="text-xl font-bold font-display text-white group-hover:text-cyan-400 transition-colors">
                   Diabetic Retinopathy Screening
                 </h3>
               </div>
-              <div className="relative h-40 rounded-2xl overflow-hidden border border-slate-700 my-3 group-hover:border-cyan-500/50 transition-colors">
+              <div className="relative h-32 rounded-xl overflow-hidden border border-slate-700 my-2 group-hover:border-cyan-500/50 transition-colors">
                 <img 
                   src="/retina_scan.png" 
                   alt="Retinal Fundus AI Scan Preview"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                <span className="absolute bottom-2 left-2 px-2.5 py-1 rounded-lg bg-slate-900/90 text-cyan-300 font-mono text-[10px] border border-slate-700 font-bold">
-                  AI Heatmap Overlay • 98.2% Accuracy
+                <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-slate-900/90 text-cyan-300 font-mono text-[9px] border border-slate-700 font-bold">
+                  98.2% DR Accuracy
                 </span>
               </div>
 
-              <p className="text-slate-300 text-sm leading-relaxed">
+              <p className="text-slate-300 text-xs leading-relaxed">
                 Evaluates macro fundus images for microaneurysms, hemorrhages, and cotton wool spots with 98% baseline accuracy.
               </p>
 
               <ul className="space-y-2 text-xs text-slate-300 font-medium">
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>Continuous Probability Score (0.0 to 1.0)</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>Binary Triage Cutoff at 0.5 Threshold</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>Instant PNG/JPG Retinal Scan Analysis</span>
                 </li>
               </ul>
             </div>
 
             <button
               onClick={() => onNavigate('diagnostics')}
-              className="w-full py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(34,211,238,0.3)]"
+              className="w-full py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(34,211,238,0.3)] mt-4"
             >
               <span>Test Retinopathy Scanner</span>
+              <ArrowRight className="w-4 h-4 text-slate-900" />
+            </button>
+          </div>
+
+          {/* Card 3: GastroVision AI */}
+          <div className="dark-glass-panel rounded-3xl p-6 hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] transition-all duration-300 flex flex-col justify-between space-y-6 group">
+            <div className="space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-slate-800/80 border border-emerald-500/30 text-emerald-400 flex items-center justify-center font-bold shadow-inner">
+                <Stethoscope className="w-7 h-7" />
+              </div>
+              <div>
+                <span className="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-1">
+                  Gradio Space • maxiu-uzumaki/gastroVision
+                </span>
+                <h3 className="text-xl font-bold font-display text-white group-hover:text-emerald-400 transition-colors">
+                  Gastrointestinal Endoscopy AI
+                </h3>
+              </div>
+              <div className="relative h-32 rounded-xl overflow-hidden border border-slate-700 my-2 group-hover:border-emerald-500/50 transition-colors">
+                <img 
+                  src="/endoscopy_scan.png" 
+                  alt="GastroVision Endoscopy AI Preview"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-slate-900/90 text-emerald-300 font-mono text-[9px] border border-slate-700 font-bold">
+                  Gradio Client Integrated
+                </span>
+              </div>
+
+              <p className="text-slate-300 text-xs leading-relaxed">
+                Classifies GI tract pathologies, mucosal inflammation, Esophagitis, and polyps via Gradio Client API.
+              </p>
+
+              <ul className="space-y-2 text-xs text-slate-300 font-medium">
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Direct @gradio/client HuggingFace Connect</span>
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Multi-Label Mucosa Confidence Scores</span>
+                </li>
+              </ul>
+            </div>
+
+            <button
+              onClick={() => onNavigate('diagnostics')}
+              className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.3)] mt-4"
+            >
+              <span>Test GastroVision Scanner</span>
               <ArrowRight className="w-4 h-4 text-slate-900" />
             </button>
           </div>

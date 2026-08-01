@@ -23,6 +23,13 @@ export interface DRResponse {
   threshold: number;
 }
 
+export interface GastroVisionResponse {
+  model: string;
+  label: string;
+  confidences?: Array<{ label: string; confidence: number }>;
+  raw?: any;
+}
+
 export interface HealthCheckResponse {
   status: string;
   message?: string;
@@ -158,6 +165,73 @@ export async function analyzeRetinopathy(imageFile: File): Promise<DRResponse> {
 
   const data: DRResponse = await response.json();
   return data;
+}
+
+/**
+ * Calls the GastroVision Endoscopy Classifier API (`maxiu-uzumaki/gastroVision`)
+ */
+export async function analyzeGastroVision(imageFile: File): Promise<GastroVisionResponse> {
+  const { Client } = await import("@gradio/client");
+  const hfToken = (import.meta as any).env?.VITE_HF_TOKEN || (window as any).HF_TOKEN || "";
+  
+  const clientOptions: any = {};
+  if (hfToken) {
+    clientOptions.hf_token = hfToken;
+  }
+
+  const client = await Client.connect("maxiu-uzumaki/gastroVision", clientOptions);
+  const result = await client.predict("/predict", {
+    image: imageFile,
+  });
+
+  const resData: any = result?.data;
+  const rawData = Array.isArray(resData) ? resData[0] : (resData || null);
+  let topLabel = "Normal / Unclassified";
+  let confList: Array<{ label: string; confidence: number }> = [];
+
+  if (typeof rawData === "string") {
+    topLabel = rawData;
+  } else if (rawData && typeof rawData === "object") {
+    if ((rawData as any).label) topLabel = (rawData as any).label;
+    if (Array.isArray((rawData as any).confidences)) {
+      confList = (rawData as any).confidences;
+    } else if ((rawData as any).confidences && typeof (rawData as any).confidences === "object") {
+      confList = Object.entries((rawData as any).confidences).map(([lbl, conf]) => ({
+        label: lbl,
+        confidence: typeof conf === "number" ? conf : 0
+      }));
+    }
+  }
+
+  return {
+    model: "GastroVision (maxiu-uzumaki)",
+    label: topLabel,
+    confidences: confList,
+    raw: rawData,
+  };
+}
+
+/**
+ * Synthetic Fallback Generator for GastroVision
+ */
+export function generateMockGastroVisionResult(): GastroVisionResponse {
+  const categories = [
+    { label: "Normal Z-line", conf: 0.96 },
+    { label: "Esophagitis Grade A", conf: 0.92 },
+    { label: "Gastric Polyps", conf: 0.89 },
+    { label: "Ulcerative Colitis Lesion", conf: 0.87 },
+    { label: "Barrett's Esophagus", conf: 0.84 }
+  ];
+  const chosen = categories[Math.floor(Math.random() * categories.length)];
+  return {
+    model: "GastroVision (Simulated)",
+    label: chosen.label,
+    confidences: [
+      { label: chosen.label, confidence: chosen.conf },
+      { label: "Normal Mucosa Baseline", confidence: Number((1 - chosen.conf).toFixed(2)) }
+    ],
+    raw: chosen
+  };
 }
 
 /**

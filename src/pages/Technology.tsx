@@ -41,6 +41,19 @@ export const Technology: React.FC = () => {
   return await res.json();
 }`;
 
+  const jsGastroSnippet = `import { Client } from "@gradio/client";
+
+// Connect to GastroVision Gradio Space (maxiu-uzumaki/gastroVision)
+const client = await Client.connect("maxiu-uzumaki/gastroVision", {
+  hf_token: process.env.HF_TOKEN // Optional Hugging Face Token secret
+});
+
+const result = await client.predict("/predict", {
+  image: endoscopicImageBlob
+});
+
+console.log("GastroVision Pathology Result:", result.data);`;
+
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
       {/* Header */}
@@ -53,7 +66,7 @@ export const Technology: React.FC = () => {
           Unified Medical AI Specifications
         </h1>
         <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
-          Comprehensive documentation for integration with our non-invasive computer vision inference backbones.
+          Comprehensive documentation for integration with our non-invasive computer vision inference backbones & GastroVision Gradio client.
         </p>
       </div>
 
@@ -90,6 +103,7 @@ export const Technology: React.FC = () => {
               <li>For <strong>Framework preset</strong>: Select <strong>None</strong> (or VitePress/React if Vite is not listed).</li>
               <li>Set <strong>Build command</strong>: <code className="text-amber-300 font-mono">npm run build</code></li>
               <li>Set <strong>Build output directory</strong>: <code className="text-amber-300 font-mono">dist</code></li>
+              <li>Add Environment Secret (optional): <code className="text-amber-300 font-mono">VITE_HF_TOKEN</code> / <code className="text-amber-300 font-mono">HF_TOKEN</code></li>
               <li>Click <strong>Save and Deploy</strong>.</li>
             </ol>
           </div>
@@ -116,7 +130,27 @@ export const Technology: React.FC = () => {
           Live Endpoint Playground & Examples
         </h2>
 
-        {/* Snippet 1: Anemia cURL */}
+        {/* Snippet 1: GastroVision Gradio JS */}
+        <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+          <div className="p-4 bg-slate-950 flex items-center justify-between border-b border-slate-800">
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+              <Code className="w-4 h-4 text-emerald-400" />
+              <span>GastroVision Gradio Client JS Integration (maxiu-uzumaki/gastroVision)</span>
+            </div>
+            <button
+              onClick={() => copyToClipboard(jsGastroSnippet, 4)}
+              className="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 flex items-center gap-1.5 transition-colors"
+            >
+              {copiedIndex === 4 ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedIndex === 4 ? 'Copied' : 'Copy JS Code'}
+            </button>
+          </div>
+          <pre className="p-5 font-mono text-xs text-emerald-300 overflow-x-auto leading-relaxed">
+            {jsGastroSnippet}
+          </pre>
+        </div>
+
+        {/* Snippet 2: Anemia cURL */}
         <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
           <div className="p-4 bg-slate-950 flex items-center justify-between border-b border-slate-800">
             <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
@@ -136,7 +170,7 @@ export const Technology: React.FC = () => {
           </pre>
         </div>
 
-        {/* Snippet 2: DR cURL */}
+        {/* Snippet 3: DR cURL */}
         <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
           <div className="p-4 bg-slate-950 flex items-center justify-between border-b border-slate-800">
             <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
@@ -156,22 +190,22 @@ export const Technology: React.FC = () => {
           </pre>
         </div>
 
-        {/* Snippet 3: JS Fetch Example */}
+        {/* Snippet 4: JS Anemia Fetch */}
         <div className="bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
           <div className="p-4 bg-slate-950 flex items-center justify-between border-b border-slate-800">
             <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
               <Code className="w-4 h-4 text-cyan-400" />
-              <span>JavaScript Fetch Integration Function</span>
+              <span>Anemia 5-Frame Extractor & Fetch Client Function</span>
             </div>
             <button
               onClick={() => copyToClipboard(jsAnemiaSnippet, 3)}
               className="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 flex items-center gap-1.5 transition-colors"
             >
               {copiedIndex === 3 ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-              {copiedIndex === 3 ? 'Copied' : 'Copy Code'}
+              {copiedIndex === 3 ? 'Copied' : 'Copy JS Code'}
             </button>
           </div>
-          <pre className="p-5 font-mono text-xs text-slate-200 overflow-x-auto leading-relaxed">
+          <pre className="p-5 font-mono text-xs text-slate-300 overflow-x-auto leading-relaxed">
             {jsAnemiaSnippet}
           </pre>
         </div>
