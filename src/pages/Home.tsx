@@ -18,102 +18,59 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
   return (
     <div className="space-y-24 pb-20">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 overflow-hidden bg-slate-950/50">
+      <section className="relative min-h-[85vh] flex items-center justify-center pt-28 pb-16 overflow-hidden">
         <ParticleCanvas />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            
-            {/* Left Content Column */}
-            <div className="lg:col-span-7 text-left space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400 text-xs font-semibold uppercase tracking-widest shadow-lg animate-fade-in backdrop-blur-sm">
-                <Sparkles className="w-4 h-4 text-cyan-400" />
-                <span>Unified Medical AI Vision Engine</span>
-              </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700 text-cyan-400 text-xs font-semibold uppercase tracking-widest shadow-lg animate-fade-in backdrop-blur-sm">
+            <Sparkles className="w-4 h-4 text-cyan-400" />
+            <span>Unified Medical AI Vision Engine</span>
+          </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-slate-400 leading-[1.15]">
-                Non-Invasive Hemoglobin & Retinal Screening via AI
-              </h1>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold font-display tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-slate-400 leading-[1.1] max-w-4xl mx-auto">
+            Non-Invasive Hemoglobin & Retinal Screening via AI
+          </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl">
-                Panacea deploys deep temporal vision backbones (<span className="text-cyan-400 font-semibold font-mono">VBOSNetDinoV2</span> and <span className="text-cyan-400 font-semibold font-mono">EfficientNetB6</span>) to turn standard mobile devices into clinical-grade diagnostic instruments.
-              </p>
+          <p className="text-lg sm:text-xl text-slate-300 font-normal leading-relaxed max-w-3xl mx-auto">
+            Panacea deploys deep temporal vision backbones (<span className="text-cyan-400 font-semibold font-mono">VBOSNetDinoV2</span> and <span className="text-cyan-400 font-semibold font-mono">EfficientNetB6</span>) to turn standard mobile devices into clinical-grade diagnostic instruments.
+          </p>
 
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <button
-                  onClick={() => onNavigate('diagnostics')}
-                  className="px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-display font-semibold text-base transition-all shadow-[0_0_25px_rgba(34,211,238,0.4)] hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] flex items-center gap-3 group"
-                >
-                  <span>Launch AI Diagnostic Suite</span>
-                  <ArrowRight className="w-5 h-5 text-slate-900 group-hover:translate-x-1 transition-transform" />
-                </button>
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <button
+              onClick={() => onNavigate('diagnostics')}
+              className="px-8 py-4 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-display font-semibold text-base transition-all shadow-[0_0_25px_rgba(34,211,238,0.4)] hover:shadow-[0_0_35px_rgba(34,211,238,0.6)] flex items-center gap-3 group"
+            >
+              <span>Launch AI Diagnostic Suite</span>
+              <ArrowRight className="w-5 h-5 text-slate-900 group-hover:translate-x-1 transition-transform" />
+            </button>
 
-                <button
-                  onClick={() => onNavigate('technology')}
-                  className="px-8 py-4 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-white font-display font-semibold text-base transition-all border border-slate-600 shadow-sm flex items-center gap-2 backdrop-blur-sm"
-                >
-                  <Cpu className="w-5 h-5 text-slate-300" />
-                  <span>Explore API Documentation</span>
-                </button>
-              </div>
+            <button
+              onClick={() => onNavigate('technology')}
+              className="px-8 py-4 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-white font-display font-semibold text-base transition-all border border-slate-600 shadow-sm flex items-center gap-2 backdrop-blur-sm"
+            >
+              <Cpu className="w-5 h-5 text-slate-300" />
+              <span>Explore API Documentation</span>
+            </button>
+          </div>
 
-              {/* Stats Bar */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-800/80">
-                <div>
-                  <div className="text-2xl font-extrabold font-display text-white">5-Frame</div>
-                  <div className="text-xs text-slate-400 font-medium">Temporal Slicing</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-extrabold font-display text-cyan-400">98.2%</div>
-                  <div className="text-xs text-slate-400 font-medium">DR Accuracy</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-extrabold font-display text-white">&lt; 1.2s</div>
-                  <div className="text-xs text-slate-400 font-medium">Cloud Latency</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-extrabold font-display text-emerald-400">0.85</div>
-                  <div className="text-xs text-slate-400 font-medium">JPEG Frame Comp</div>
-                </div>
-              </div>
+          {/* Stats Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-10 max-w-4xl mx-auto border-t border-slate-800/80">
+            <div>
+              <div className="text-3xl font-extrabold font-display text-white">5-Frame</div>
+              <div className="text-xs text-slate-400 font-medium">Temporal Slicing</div>
             </div>
-
-            {/* Right Graphic Column */}
-            <div className="lg:col-span-5 relative">
-              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-3xl blur-2xl pointer-events-none" />
-              
-              <div className="relative dark-glass-panel rounded-3xl p-3 border border-cyan-500/30 shadow-2xl space-y-3">
-                {/* Header status bar */}
-                <div className="flex items-center justify-between px-3 py-1.5 bg-slate-900/80 rounded-2xl border border-slate-800 text-xs">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="font-mono text-slate-300 text-[11px]">LIVE AI HUD • v2.4</span>
-                  </div>
-                  <span className="text-cyan-400 font-mono text-[10px] uppercase font-bold">Inference Ready</span>
-                </div>
-
-                {/* Main Hero Image Showcase */}
-                <div className="relative rounded-2xl overflow-hidden border border-slate-800 group aspect-[4/3] bg-slate-950">
-                  <img 
-                    src="/hero_dashboard.png" 
-                    alt="Panacea Medical AI Diagnostic Dashboard"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-
-                  <div className="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-slate-900/90 backdrop-blur-md border border-slate-800 text-left space-y-1">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-mono font-bold text-cyan-400">VBOSNetDinoV2 & EfficientNetB6</span>
-                      <span className="text-emerald-400 font-mono text-[11px] font-bold">Active Engine</span>
-                    </div>
-                    <p className="text-[11px] text-slate-300">
-                      Processing 5-frame fingertip video clips & macro retinal fundus photography.
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div>
+              <div className="text-3xl font-extrabold font-display text-cyan-400">98.2%</div>
+              <div className="text-xs text-slate-400 font-medium">DR Accuracy</div>
             </div>
-
+            <div>
+              <div className="text-3xl font-extrabold font-display text-white">&lt; 1.2s</div>
+              <div className="text-xs text-slate-400 font-medium">Cloud Latency</div>
+            </div>
+            <div>
+              <div className="text-3xl font-extrabold font-display text-emerald-400">0.85</div>
+              <div className="text-xs text-slate-400 font-medium">JPEG Frame Comp</div>
+            </div>
           </div>
         </div>
       </section>
