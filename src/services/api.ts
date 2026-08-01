@@ -3,7 +3,7 @@
  * Handles API calls to the Unified Medical AI Backend
  */
 
-export const BASE_API_URL = "https://3d1d-167-220-238-171.ngrok-free.app";
+export const BASE_API_URL = "https://6c82-167-220-238-235.ngrok-free.app";
 export const NGROK_HEADER_KEY = "ngrok-skip-browser-warning";
 export const NGROK_HEADER_VAL = "69420";
 
