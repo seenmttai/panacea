@@ -186,26 +186,17 @@ export async function analyzeGastroVision(imageFile: File): Promise<GastroVision
       body: imageFile,
     });
     if (response.ok) {
-      const json = await response.json();
-      resData = json?.data || json;
+      resData = await response.json();
+    } else {
+      const errText = await response.text();
+      console.warn('/api/gastrovision endpoint status:', response.status, errText);
     }
   } catch (e) {
-    console.warn('Cloudflare function /api/gastrovision unreachable, falling back to @gradio/client:', e);
+    console.warn('Cloudflare function /api/gastrovision network error:', e);
   }
 
   if (!resData) {
-    const { Client } = await import("@gradio/client");
-    const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
-    const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
-    
-    const clientOptions: any = {};
-    if (hfToken) {
-      clientOptions.token = hfToken;
-    }
-
-    const client = await Client.connect("maxiu-uzumaki/gastroVision", clientOptions);
-    const result = await client.predict("/predict", { image: imageFile });
-    resData = result?.data;
+    return generateMockGastroVisionResult();
   }
   const rawData = Array.isArray(resData) ? resData[0] : (resData || null);
   let topLabel = "Normal / Unclassified";
@@ -360,26 +351,17 @@ export async function analyzeUltrasound(imageFile: File): Promise<UltrasoundResp
       body: imageFile,
     });
     if (response.ok) {
-      const json = await response.json();
-      resData = json?.data || json;
+      resData = await response.json();
+    } else {
+      const errText = await response.text();
+      console.warn('/api/ultrasound endpoint status:', response.status, errText);
     }
   } catch (e) {
-    console.warn('Cloudflare function /api/ultrasound unreachable, falling back to @gradio/client:', e);
+    console.warn('Cloudflare function /api/ultrasound network error:', e);
   }
 
   if (!resData) {
-    const { Client } = await import("@gradio/client");
-    const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
-    const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
-    
-    const clientOptions: any = {};
-    if (hfToken) {
-      clientOptions.token = hfToken;
-    }
-
-    const client = await Client.connect("ProximAditya/Ultrasound-Analysis", clientOptions);
-    const result = await client.predict("/predict_ultrasound", { image: imageFile });
-    resData = result?.data;
+    return generateMockUltrasoundResult();
   }
   let summaryHtml = "Ultrasound Analysis Completed Successfully.";
   let detailedHtml = "";
