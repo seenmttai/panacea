@@ -23,7 +23,7 @@ export async function onRequestPost(context) {
 
     // 1. Upload file to Hugging Face Space /upload endpoint
     const uploadFormData = new FormData();
-    uploadFormData.append('files', blob);
+    uploadFormData.append('files', blob, 'image.jpg');
 
     const uploadResponse = await fetch(`${spaceUrl}/gradio_api/upload`, {
       method: 'POST',
