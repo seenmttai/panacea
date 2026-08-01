@@ -19,7 +19,19 @@ export async function onRequestPost(context) {
 
     // Helper to generate a random session hash for Gradio
     const sessionHash = Math.random().toString(36).substring(2, 12);
-    const spaceUrl = "https://proximaditya-ultrasound-analysis.hf.space";
+    
+    // Resolve actual Space host URL (required for private spaces)
+    const hostResponse = await fetch("https://huggingface.co/api/spaces/ProximAditya/Ultrasound-Analysis/host", {
+      headers: { 'Authorization': `Bearer ${env.HF_TOKEN}` }
+    });
+    if (!hostResponse.ok) {
+      return new Response(JSON.stringify({ error: `Failed to resolve Space host. Check HF_TOKEN.` }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+    const hostData = await hostResponse.json();
+    const spaceUrl = hostData.host;
 
     // 1. Upload file to Hugging Face Space /upload endpoint
     const uploadFormData = new FormData();
