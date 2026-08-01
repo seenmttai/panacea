@@ -73,8 +73,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate('technology')} className="hover:text-white transition-colors">
-                  API & Developer Specs
+                <button onClick={() => onNavigate('contact')} className="hover:text-white transition-colors">
+                  Clinical Contact & Research
                 </button>
               </li>
             </ul>

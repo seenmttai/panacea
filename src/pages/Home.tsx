@@ -5,7 +5,6 @@ import {
   ArrowRight, 
   Droplet, 
   Eye, 
-  Cpu, 
   CheckCircle2,
   Stethoscope
 } from 'lucide-react';
@@ -42,14 +41,6 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
             >
               <span>Launch AI Diagnostic Suite</span>
               <ArrowRight className="w-5 h-5 text-slate-900 group-hover:translate-x-1 transition-transform" />
-            </button>
-
-            <button
-              onClick={() => onNavigate('technology')}
-              className="px-8 py-4 rounded-2xl bg-slate-800/80 hover:bg-slate-700 text-white font-display font-semibold text-base transition-all border border-slate-600 shadow-sm flex items-center gap-2 backdrop-blur-sm"
-            >
-              <Cpu className="w-5 h-5 text-slate-300" />
-              <span>Explore API Documentation</span>
             </button>
           </div>
 

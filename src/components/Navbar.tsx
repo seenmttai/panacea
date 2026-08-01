@@ -13,7 +13,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onNavigate }) => {
   const navItems = [
     { id: 'home', label: 'Overview' },
     { id: 'diagnostics', label: 'Live AI Diagnostics' },
-    { id: 'technology', label: 'Architecture & API' },
     { id: 'contact', label: 'Clinical Contact' },
   ];
 
