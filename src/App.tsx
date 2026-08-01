@@ -5,6 +5,7 @@ import { Home } from './pages/Home';
 import { Diagnostics } from './pages/Diagnostics';
 import { Technology } from './pages/Technology';
 import { ContactPage } from './pages/ContactPage';
+import { AuroraBackground } from './components/AuroraBackground';
 
 export function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -29,14 +30,18 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-slate-900 selection:text-cyan-400">
-      <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100 selection:bg-cyan-500 selection:text-slate-950 relative overflow-x-hidden">
+      <AuroraBackground />
       
-      <main className="flex-grow">
-        {renderPage()}
-      </main>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+        
+        <main className="flex-grow">
+          {renderPage()}
+        </main>
 
-      <Footer onNavigate={setCurrentPage} />
+        <Footer onNavigate={setCurrentPage} />
+      </div>
     </div>
   );
 }

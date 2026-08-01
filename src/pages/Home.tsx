@@ -1,6 +1,5 @@
 import React from 'react';
 import { ParticleCanvas } from '../components/ParticleCanvas';
-import { TestimonialSlider } from '../components/TestimonialSlider';
 import { 
   Sparkles, 
   ArrowRight, 
@@ -281,10 +280,6 @@ export const Home: React.FC<HomeProps> = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Testimonials Slider */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <TestimonialSlider />
-      </section>
 
       {/* FAQ Section */}
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
