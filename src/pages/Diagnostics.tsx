@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { AnemiaScanner } from '../components/AnemiaScanner';
 import { RetinopathyScanner } from '../components/RetinopathyScanner';
-import { GastroScanner } from '../components/GastroScanner';
-import { UltrasoundScanner } from '../components/UltrasoundScanner';
 import { ApiStatusBadge } from '../components/ApiStatusBadge';
-import { Droplet, Eye, Stethoscope, Waves } from 'lucide-react';
+import { Droplet, Eye, Stethoscope } from 'lucide-react';
 
 export const Diagnostics: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'anemia' | 'dr' | 'gastro' | 'ultrasound'>('anemia');
+  const [activeTab, setActiveTab] = useState<'anemia' | 'dr'>('anemia');
 
   return (
     <div className="pt-28 pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -50,26 +48,11 @@ export const Diagnostics: React.FC = () => {
             <span>Diabetic Retinopathy</span>
           </button>
           <button
-            onClick={() => setActiveTab('gastro')}
-            className={`px-4 py-2.5 rounded-xl font-display font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 ${
-              activeTab === 'gastro'
-                ? 'bg-slate-800 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-slate-700'
-                : 'text-slate-400 hover:text-white'
-            }`}
+            onClick={() => window.open('https://gastrovision.pages.dev/', '_blank')}
+            className="px-4 py-2.5 rounded-xl font-display font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 text-slate-400 hover:text-white"
           >
             <Stethoscope className="w-4 h-4 text-emerald-400" />
             <span>GastroVision AI</span>
-          </button>
-          <button
-            onClick={() => setActiveTab('ultrasound')}
-            className={`px-4 py-2.5 rounded-xl font-display font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 ${
-              activeTab === 'ultrasound'
-                ? 'bg-slate-800 text-white shadow-[0_0_15px_rgba(255,255,255,0.1)] border border-slate-700'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Waves className="w-4 h-4 text-cyan-300" />
-            <span>Ultrasound AI</span>
           </button>
         </div>
       </div>
@@ -78,8 +61,6 @@ export const Diagnostics: React.FC = () => {
       <div className="animate-fade-in">
         {activeTab === 'anemia' && <AnemiaScanner />}
         {activeTab === 'dr' && <RetinopathyScanner />}
-        {activeTab === 'gastro' && <GastroScanner />}
-        {activeTab === 'ultrasound' && <UltrasoundScanner />}
       </div>
     </div>
   );
