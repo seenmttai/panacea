@@ -70,8 +70,8 @@ export const TestimonialSlider: React.FC = () => {
           </span>
         </div>
 
-        <blockquote className="text-xl md:text-2xl font-serif leading-relaxed text-slate-100">
-          "{t.quote}"
+        <blockquote className="text-lg md:text-xl font-sans font-medium leading-relaxed text-slate-200">
+          &ldquo;{t.quote}&rdquo;
         </blockquote>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 border-t border-slate-800 pt-6">
