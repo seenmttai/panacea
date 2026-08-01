@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stethoscope, Sparkles, RefreshCw, FileImage, CheckCircle2 } from 'lucide-react';
+import { Stethoscope, Sparkles, RefreshCw, FileImage, CheckCircle2, Trash2, X } from 'lucide-react';
 import { analyzeGastroVision, generateMockGastroVisionResult, type GastroVisionResponse } from '../services/api';
 
 export const GastroScanner: React.FC = () => {
@@ -76,6 +76,13 @@ export const GastroScanner: React.FC = () => {
     }
   };
 
+  const clearSelectedImage = () => {
+    setImageFile(null);
+    setPreviewUrl(null);
+    setResult(null);
+    setError(null);
+  };
+
   return (
     <div className="dark-glass-panel rounded-2xl overflow-hidden">
       {/* Header */}
@@ -108,14 +115,29 @@ export const GastroScanner: React.FC = () => {
         <div className="p-6 rounded-2xl border-2 border-dashed border-slate-700 bg-slate-900/50 flex flex-col items-center justify-center text-center space-y-4">
           {previewUrl ? (
             <div className="w-full max-w-sm space-y-3">
-              <div className="relative aspect-square max-h-72 bg-slate-900 rounded-xl overflow-hidden border border-slate-700 shadow-md mx-auto">
+              <div className="relative aspect-square max-h-72 bg-slate-900 rounded-xl overflow-hidden border border-slate-700 shadow-md mx-auto group">
                 <img src={previewUrl} alt="Endoscopy preview" className="w-full h-full object-cover" />
+                <button
+                  type="button"
+                  onClick={clearSelectedImage}
+                  className="absolute top-3 right-3 px-3 py-1.5 rounded-xl bg-slate-950/80 hover:bg-rose-600 text-rose-300 hover:text-white border border-slate-700 transition-all flex items-center gap-1.5 text-xs font-semibold shadow-lg backdrop-blur-md"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>Remove Image</span>
+                </button>
               </div>
-              <div className="flex items-center justify-between text-xs text-slate-400">
+              <div className="flex items-center justify-between text-xs text-slate-400 px-1">
                 <span className="font-medium text-white truncate max-w-[200px]">
                   {imageFile?.name}
                 </span>
-                <span>{(imageFile?.size ? imageFile.size / 1024 : 0).toFixed(1)} KB</span>
+                <button
+                  type="button"
+                  onClick={clearSelectedImage}
+                  className="text-rose-400 hover:text-rose-300 font-semibold underline flex items-center gap-1"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>Remove</span>
+                </button>
               </div>
             </div>
           ) : (
