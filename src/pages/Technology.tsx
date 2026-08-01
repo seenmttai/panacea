@@ -81,14 +81,15 @@ export const Technology: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
           <div className="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-3">
             <h4 className="font-bold text-sm text-cyan-400 font-display">
-              Option 1: Cloudflare Dashboard (GitHub Auto-Deploy)
+              Option 1: Cloudflare Dashboard (GitHub Integration)
             </h4>
             <ol className="list-decimal list-inside space-y-1.5 leading-relaxed text-slate-300">
-              <li>Push your code repo to GitHub or GitLab.</li>
-              <li>Open Cloudflare Dashboard → Workers & Pages → Create Application → Pages.</li>
-              <li>Connect your Git repository and select project root.</li>
-              <li>Set Build Command: <code className="text-amber-300 font-mono">npm run build</code></li>
-              <li>Set Build Output Directory: <code className="text-amber-300 font-mono">dist</code></li>
+              <li>Push your code repo to GitHub (e.g. branch <code className="text-amber-300 font-mono">master</code>).</li>
+              <li>In Cloudflare Dashboard → <strong>Workers & Pages</strong> → <strong>Create Application</strong> → <strong>Pages</strong> → <strong>Connect to Git</strong>.</li>
+              <li>Select your <code className="text-amber-300 font-mono">panacea</code> repository.</li>
+              <li>For <strong>Framework preset</strong>: Select <strong>None</strong> (or VitePress/React if Vite is not listed).</li>
+              <li>Set <strong>Build command</strong>: <code className="text-amber-300 font-mono">npm run build</code></li>
+              <li>Set <strong>Build output directory</strong>: <code className="text-amber-300 font-mono">dist</code></li>
               <li>Click <strong>Save and Deploy</strong>.</li>
             </ol>
           </div>
