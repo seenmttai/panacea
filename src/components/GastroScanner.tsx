@@ -242,12 +242,19 @@ export const GastroScanner: React.FC = () => {
               )}
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 text-xs text-slate-400 flex items-center justify-between">
+            <div className="p-4 rounded-xl bg-slate-800/50 border border-slate-700 text-xs text-slate-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
               <div>
-                <span className="text-slate-500">Backbone Model:</span> {result.model}
+                <span className="text-slate-500">Backbone Model:</span> <span className="text-white font-mono">{result.model}</span>
               </div>
-              <div>
-                <span className="text-slate-500">Gradio Client:</span> maxiu-uzumaki/gastroVision
+              <div className="flex items-center gap-2">
+                <span className="text-slate-500">API Source:</span>
+                <span className={`px-2 py-0.5 rounded font-mono font-bold text-[11px] ${
+                  result.model.includes('Simulated') 
+                    ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' 
+                    : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                }`}>
+                  {result.model.includes('Simulated') ? '⚠️ Offline Simulation Fallback' : '⚡ Live HuggingFace Gradio Space'}
+                </span>
               </div>
             </div>
           </div>
