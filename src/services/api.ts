@@ -30,6 +30,13 @@ export interface GastroVisionResponse {
   raw?: any;
 }
 
+export interface UltrasoundResponse {
+  model: string;
+  summaryHtml: string;
+  detailedHtml: string;
+  raw?: any;
+}
+
 export interface HealthCheckResponse {
   status: string;
   message?: string;
@@ -324,4 +331,60 @@ export async function sendResendContactEmail(formData: ContactFormData): Promise
     console.error("Resend API Exception:", err);
     return { success: false, message: err.message || "Failed to transmit via Resend API" };
   }
+}
+
+/**
+ * Calls the Ultrasound Analysis AI API (`ProximAditya/Ultrasound-Analysis`)
+ */
+export async function analyzeUltrasound(imageFile: File): Promise<UltrasoundResponse> {
+  const { Client } = await import("@gradio/client");
+  const hfToken = (import.meta as any).env?.VITE_HF_TOKEN || (window as any).HF_TOKEN || "";
+  
+  const clientOptions: any = {};
+  if (hfToken) {
+    clientOptions.hf_token = hfToken;
+  }
+
+  const client = await Client.connect("ProximAditya/Ultrasound-Analysis", clientOptions);
+  const result = await client.predict("/predict_ultrasound", {
+    image: imageFile,
+  });
+
+  const resData: any = result?.data;
+  let summaryHtml = "Ultrasound Analysis Completed Successfully.";
+  let detailedHtml = "";
+
+  if (Array.isArray(resData)) {
+    summaryHtml = typeof resData[0] === "string" ? resData[0] : JSON.stringify(resData[0]);
+    detailedHtml = typeof resData[1] === "string" ? resData[1] : JSON.stringify(resData[1]);
+  } else if (typeof resData === "string") {
+    summaryHtml = resData;
+  }
+
+  return {
+    model: "Ultrasound-Analysis (ProximAditya)",
+    summaryHtml,
+    detailedHtml,
+    raw: resData,
+  };
+}
+
+/**
+ * Synthetic Fallback Generator for Ultrasound Analysis
+ */
+export function generateMockUltrasoundResult(): UltrasoundResponse {
+  return {
+    model: "Ultrasound-Analysis (Simulated)",
+    summaryHtml: `<div class="p-4 rounded-xl bg-cyan-950/40 border border-cyan-800 text-cyan-200 space-y-2">
+      <h4 class="font-bold text-sm text-cyan-300">Ultrasonic Tissue Boundary Scan Result</h4>
+      <p class="text-xs leading-relaxed">Echogenicity distribution: <strong class="text-emerald-400">Normal Homogeneous Parenchyma</strong>. No focal hypoechoic acoustic shadow detected across acoustic windows.</p>
+    </div>`,
+    detailedHtml: `<div class="space-y-3 text-xs text-slate-300">
+      <div class="p-3 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
+        <p><strong>Acoustic Impedance Index:</strong> <span class="font-mono text-cyan-400">1.48 MRayl (Optimal)</span></p>
+        <p><strong>Lesion Detection Score:</strong> <span class="font-mono text-emerald-400">0.04 (Negative for abnormal cystic or solid masses)</span></p>
+        <p><strong>Speckle Noise Reduction:</strong> <span class="font-mono text-slate-400">99.1% Adaptive Filtering</span></p>
+      </div>
+    </div>`,
+  };
 }
