@@ -31,12 +31,21 @@ export const AnemiaScanner: React.FC = () => {
   const recordedChunksRef = useRef<Blob[]>([]);
 
   // Start Live Webcam & Torch
+  // Bind live camera stream to video element once mounted in DOM
+  useEffect(() => {
+    if (isLiveCamera && streamRef.current && videoRef.current) {
+      videoRef.current.srcObject = streamRef.current;
+      videoRef.current.play().catch((err) => console.warn('Video play error:', err));
+    }
+  }, [isLiveCamera]);
+
+  // Start Live Webcam & Torch
   const startLiveCamera = async () => {
     try {
       setError(null);
       const constraints: MediaStreamConstraints = {
         video: {
-          facingMode: 'environment', // Rear camera preferred on mobile
+          facingMode: { ideal: 'environment' }, // Rear camera preferred on mobile
           width: { ideal: 1280 },
           height: { ideal: 720 },
         },
@@ -45,12 +54,14 @@ export const AnemiaScanner: React.FC = () => {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       streamRef.current = stream;
 
+      // Set live camera active so the <video> element renders in DOM
+      setIsLiveCamera(true);
+
+      // Bind directly if video element is already present
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        await videoRef.current.play();
+        videoRef.current.play().catch(() => {});
       }
-
-      setIsLiveCamera(true);
 
       // Attempt to turn on flashlight / torch constraint
       const track = stream.getVideoTracks()[0];
@@ -110,7 +121,18 @@ export const AnemiaScanner: React.FC = () => {
     if (!streamRef.current) return;
     recordedChunksRef.current = [];
     try {
-      const recorder = new MediaRecorder(streamRef.current, { mimeType: 'video/webm' });
+      let options: MediaRecorderOptions = {};
+      if (typeof MediaRecorder !== 'undefined') {
+        if (MediaRecorder.isTypeSupported('video/mp4')) {
+          options = { mimeType: 'video/mp4' };
+        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+          options = { mimeType: 'video/webm;codecs=vp9' };
+        } else if (MediaRecorder.isTypeSupported('video/webm')) {
+          options = { mimeType: 'video/webm' };
+        }
+      }
+
+      const recorder = new MediaRecorder(streamRef.current, options);
       mediaRecorderRef.current = recorder;
 
       recorder.ondataavailable = (e) => {
@@ -120,8 +142,9 @@ export const AnemiaScanner: React.FC = () => {
       };
 
       recorder.onstop = () => {
-        const blob = new Blob(recordedChunksRef.current, { type: 'video/mp4' });
-        const file = new File([blob], 'fingertip_clip.mp4', { type: 'video/mp4' });
+        const mime = options.mimeType || 'video/mp4';
+        const blob = new Blob(recordedChunksRef.current, { type: mime });
+        const file = new File([blob], 'fingertip_clip.mp4', { type: mime });
         setVideoFile(file);
         setVideoPreviewUrl(URL.createObjectURL(blob));
         stopLiveCamera();
@@ -358,6 +381,7 @@ export const AnemiaScanner: React.FC = () => {
             <div className="relative aspect-video max-h-72 bg-black rounded-xl overflow-hidden flex items-center justify-center border border-slate-800">
               <video
                 ref={videoRef}
+                autoPlay
                 playsInline
                 muted
                 className="w-full h-full object-cover"
