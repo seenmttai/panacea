@@ -178,21 +178,35 @@ export async function analyzeRetinopathy(imageFile: File): Promise<DRResponse> {
  * Calls the GastroVision Endoscopy Classifier API (`maxiu-uzumaki/gastroVision`)
  */
 export async function analyzeGastroVision(imageFile: File): Promise<GastroVisionResponse> {
-  const { Client } = await import("@gradio/client");
-  const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
-  const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
-  
-  const clientOptions: any = {};
-  if (hfToken) {
-    clientOptions.token = hfToken;
+  let resData: any = null;
+
+  try {
+    const response = await fetch('/api/gastrovision', {
+      method: 'POST',
+      body: imageFile,
+    });
+    if (response.ok) {
+      const json = await response.json();
+      resData = json?.data || json;
+    }
+  } catch (e) {
+    console.warn('Cloudflare function /api/gastrovision unreachable, falling back to @gradio/client:', e);
   }
 
-  const client = await Client.connect("maxiu-uzumaki/gastroVision", clientOptions);
-  const result = await client.predict("/predict", {
-    image: imageFile,
-  });
+  if (!resData) {
+    const { Client } = await import("@gradio/client");
+    const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
+    const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
+    
+    const clientOptions: any = {};
+    if (hfToken) {
+      clientOptions.token = hfToken;
+    }
 
-  const resData: any = result?.data;
+    const client = await Client.connect("maxiu-uzumaki/gastroVision", clientOptions);
+    const result = await client.predict("/predict", { image: imageFile });
+    resData = result?.data;
+  }
   const rawData = Array.isArray(resData) ? resData[0] : (resData || null);
   let topLabel = "Normal / Unclassified";
   let confList: Array<{ label: string; confidence: number }> = [];
@@ -338,21 +352,35 @@ export async function sendResendContactEmail(formData: ContactFormData): Promise
  * Calls the Ultrasound Analysis AI API (`ProximAditya/Ultrasound-Analysis`)
  */
 export async function analyzeUltrasound(imageFile: File): Promise<UltrasoundResponse> {
-  const { Client } = await import("@gradio/client");
-  const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
-  const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
-  
-  const clientOptions: any = {};
-  if (hfToken) {
-    clientOptions.token = hfToken;
+  let resData: any = null;
+
+  try {
+    const response = await fetch('/api/ultrasound', {
+      method: 'POST',
+      body: imageFile,
+    });
+    if (response.ok) {
+      const json = await response.json();
+      resData = json?.data || json;
+    }
+  } catch (e) {
+    console.warn('Cloudflare function /api/ultrasound unreachable, falling back to @gradio/client:', e);
   }
 
-  const client = await Client.connect("ProximAditya/Ultrasound-Analysis", clientOptions);
-  const result = await client.predict("/predict_ultrasound", {
-    image: imageFile,
-  });
+  if (!resData) {
+    const { Client } = await import("@gradio/client");
+    const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
+    const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
+    
+    const clientOptions: any = {};
+    if (hfToken) {
+      clientOptions.token = hfToken;
+    }
 
-  const resData: any = result?.data;
+    const client = await Client.connect("ProximAditya/Ultrasound-Analysis", clientOptions);
+    const result = await client.predict("/predict_ultrasound", { image: imageFile });
+    resData = result?.data;
+  }
   let summaryHtml = "Ultrasound Analysis Completed Successfully.";
   let detailedHtml = "";
 
