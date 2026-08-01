@@ -179,11 +179,12 @@ export async function analyzeRetinopathy(imageFile: File): Promise<DRResponse> {
  */
 export async function analyzeGastroVision(imageFile: File): Promise<GastroVisionResponse> {
   const { Client } = await import("@gradio/client");
-  const hfToken = (import.meta as any).env?.VITE_HF_TOKEN || (window as any).HF_TOKEN || "";
+  const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
+  const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
   
   const clientOptions: any = {};
   if (hfToken) {
-    clientOptions.hf_token = hfToken;
+    clientOptions.token = hfToken;
   }
 
   const client = await Client.connect("maxiu-uzumaki/gastroVision", clientOptions);
@@ -338,11 +339,12 @@ export async function sendResendContactEmail(formData: ContactFormData): Promise
  */
 export async function analyzeUltrasound(imageFile: File): Promise<UltrasoundResponse> {
   const { Client } = await import("@gradio/client");
-  const hfToken = (import.meta as any).env?.VITE_HF_TOKEN || (window as any).HF_TOKEN || "";
+  const env = (import.meta as any).env || ((globalThis as any).process?.env || {});
+  const hfToken = env.VITE_HF_TOKEN || env.HF_TOKEN || (window as any).HF_TOKEN || "";
   
   const clientOptions: any = {};
   if (hfToken) {
-    clientOptions.hf_token = hfToken;
+    clientOptions.token = hfToken;
   }
 
   const client = await Client.connect("ProximAditya/Ultrasound-Analysis", clientOptions);
